@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Eventmaps</title>
+  <title>Event Maps</title>
+  <%= stylesheet_link_tag 'https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.css' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
+	<div class="sidebar">
+	  	<div class="heading">
+		    <h1><strong>Event Maps!</strong></h1>
+		  <%#= link_to (image_tag "logo.jpg"), root_url %> <br>
+
+		  <%= render partial: "layouts/flash_messages", flash: flash %>
+		</div>
+
+  		<div id="listings" class="listings">
+
 <%= yield %>
+		</div>
+	</div>
+
+	<div id="map" class="map">
+	  	<div class="search">
+		    <%= form_tag locations_path, :method => :get do %>
+		    <p>
+		      <%= text_field_tag :search, params[:search], :class => 'span4 search-query' %>
+		      <%= submit_tag "Search Near", :name => nil, :class => 'btn btn-primary'  %>
+		    </p>
+	    	<% end %>
+	  	</div>
+	</div>
+
+	<div id="product-modal" class="modal fade">
+  		<div class="modal-dialog">
+    		<div id="inner-product-modal" class="modal-content"></div>
+  		</div>
+	</div>
+
+	<%= javascript_include_tag 'https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.js' %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 </body>
 </html>
